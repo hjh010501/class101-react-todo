@@ -34,16 +34,16 @@ const TodoList = styled.div`
 export function HomePage() {
   const [todoList, setTodoList] = React.useState<Array<TodoItemContent>>([
     {
-      content: '안녕하세요',
+      content: 'class101 강의 수강하기',
     },
     {
-      content: '안녕하세요',
+      content: 'Git 공부하기',
     },
     {
-      content: '안녕하세요',
+      content: 'Typescript 공부하기',
     },
     {
-      content: '안녕하세요',
+      content: 'React function component 라이프 사이클',
     },
   ]);
 
