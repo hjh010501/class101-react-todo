@@ -1,5 +1,4 @@
 import * as React from 'react';
-import { Helmet } from 'react-helmet-async';
 import styled from 'styled-components';
 
 import Block from '../../components/Block';

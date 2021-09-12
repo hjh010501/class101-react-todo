@@ -2,8 +2,7 @@ import * as React from 'react';
 import { Helmet } from 'react-helmet-async';
 import styled from 'styled-components';
 
-import Block from '../../components/Block';
-import Checkbox from '../../components/Checkbox';
+import TodoInput from '../../components/TodoInput';
 import TodoItem from '../../components/TodoItem';
 
 const Wrapper = styled.div`
@@ -17,7 +16,6 @@ const Wrapper = styled.div`
 
 const Box = styled.div`
   width: 400px;
-  height: 600px;
   background: white;
   box-shadow: 0px 25px 100px -60px rgba(0, 0, 0, 0.18);
   border-radius: 15px;
@@ -28,9 +26,27 @@ const Title = styled.h1`
   padding: 15px 25px;
 `;
 
-const TodoList = styled.div``;
+const TodoList = styled.div`
+  height: 450px;
+  overflow-y: auto;
+`;
 
 export function HomePage() {
+  const [todoList, setTodoList] = React.useState<Array<TodoItemContent>>([
+    {
+      content: '안녕하세요',
+    },
+    {
+      content: '안녕하세요',
+    },
+    {
+      content: '안녕하세요',
+    },
+    {
+      content: '안녕하세요',
+    },
+  ]);
+
   return (
     <>
       <Helmet>
@@ -39,12 +55,19 @@ export function HomePage() {
       </Helmet>
       <Wrapper>
         <Box>
-          <Title>할 일</Title>
-
+          <Title>
+            할 일
+            <span style={{ fontSize: '0.7em' }}> ({todoList.length}개)</span>
+          </Title>
+          <TodoInput
+            setTodoList={(todo: TodoItemContent) =>
+              setTodoList([todo, ...todoList])
+            }
+          />
           <TodoList>
-            <TodoItem content="아침 일정 완료" />
-            <TodoItem content="아침 일정 완료" />
-            <TodoItem content="아침 일정 완료" />
+            {todoList.map((todo, index) => (
+              <TodoItem key={index} content={todo.content} />
+            ))}
           </TodoList>
         </Box>
       </Wrapper>
