@@ -18,14 +18,20 @@ const TodoContent = styled.span<{ checked: boolean }>`
   color: ${props => (props.checked ? '#aaa' : '#212121')};
 `;
 
-export default function TodoItem({ content }: { content: string }) {
-  const [checked, setChecked] = React.useState(false);
+export default function TodoItem({
+  todo,
+  checkTodo,
+}: {
+  todo: TodoItem;
+  checkTodo: () => void;
+}) {
+  const { content, completed } = todo;
 
   return (
     <Box>
-      <Checkbox checked={checked} onClick={() => setChecked(!checked)} />
+      <Checkbox checked={completed} onClick={() => checkTodo()} />
       <Block marginRight="10px" />
-      <TodoContent checked={checked}>{content}</TodoContent>
+      <TodoContent checked={completed}>{content}</TodoContent>
     </Box>
   );
 }

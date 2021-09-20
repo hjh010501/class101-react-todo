@@ -3,5 +3,6 @@ interface TodoItemContent {
 }
 
 interface TodoItem extends TodoItemContent {
+  id: string;
   completed: boolean;
 }

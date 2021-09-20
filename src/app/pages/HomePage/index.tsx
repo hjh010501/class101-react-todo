@@ -1,5 +1,8 @@
 import * as React from 'react';
 import { Helmet } from 'react-helmet-async';
+import { useDispatch, useSelector } from 'react-redux';
+import { useTodoSlice } from 'store/todo';
+import { TodoListSelector } from 'store/todo/selectors';
 import styled from 'styled-components';
 
 import TodoInput from '../../components/TodoInput';
@@ -32,20 +35,9 @@ const TodoList = styled.div`
 `;
 
 export function HomePage() {
-  const [todoList, setTodoList] = React.useState<Array<TodoItemContent>>([
-    {
-      content: 'class101 강의 수강하기',
-    },
-    {
-      content: 'Git 공부하기',
-    },
-    {
-      content: 'Typescript 공부하기',
-    },
-    {
-      content: 'React function component 라이프 사이클',
-    },
-  ]);
+  const { TodoActions } = useTodoSlice();
+  const todoList = useSelector(TodoListSelector);
+  const dispatch = useDispatch();
 
   return (
     <>
@@ -60,13 +52,17 @@ export function HomePage() {
             <span style={{ fontSize: '0.7em' }}> ({todoList.length}개)</span>
           </Title>
           <TodoInput
-            setTodoList={(todo: TodoItemContent) =>
-              setTodoList([todo, ...todoList])
-            }
+            addTodo={(todo: string) => dispatch(TodoActions.addTodo(todo))}
           />
           <TodoList>
             {todoList.map((todo, index) => (
-              <TodoItem key={index} content={todo.content} />
+              <TodoItem
+                key={index}
+                todo={todo}
+                checkTodo={() =>
+                  dispatch(TodoActions.checkTodo({ id: todo.id }))
+                }
+              />
             ))}
           </TodoList>
         </Box>

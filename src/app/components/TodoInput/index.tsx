@@ -17,9 +17,9 @@ const Input = styled.input`
 `;
 
 export default function TodoInput({
-  setTodoList,
+  addTodo,
 }: {
-  setTodoList: (todo: TodoItemContent) => void;
+  addTodo: (content: string) => void;
 }) {
   const [content, setContent] = React.useState<string>('');
 
@@ -33,9 +33,7 @@ export default function TodoInput({
         onKeyPress={e => {
           if (content === '') return;
           if (e.key !== 'Enter' && e.key !== 'NumpadEnter') return;
-          setTodoList({
-            content,
-          });
+          addTodo(content);
           setContent('');
         }}
       />
