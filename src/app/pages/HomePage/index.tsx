@@ -62,6 +62,9 @@ export function HomePage() {
                 checkTodo={() =>
                   dispatch(TodoActions.checkTodo({ id: todo.id }))
                 }
+                deleteTodo={() =>
+                  dispatch(TodoActions.deleteTodo({ id: todo.id }))
+                }
               />
             ))}
           </TodoList>

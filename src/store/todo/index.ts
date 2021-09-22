@@ -48,6 +48,11 @@ const slice = createSlice({
         todo.completed = !todo.completed;
       }
     },
+    deleteTodo(state, action: PayloadAction<{ id: string }>) {
+      const { id } = action.payload;
+      const filteredTodos = state.todolist.filter(todo => todo.id !== id);
+      state.todolist = filteredTodos;
+    },
   },
 });
 
