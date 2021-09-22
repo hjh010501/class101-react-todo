@@ -9,13 +9,31 @@ const Box = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 15px 25px;
+  padding: 15px 15px 15px 25px;
   width: 100%;
   font-size: 1.1em;
   border-bottom: 1px solid #eee;
+
+  & > .delete-button {
+    display: none;
+  }
+
+  &:hover {
+    padding: 10px 15px 10px 25px;
+
+    & > .delete-button {
+      display: flex;
+    }
+  }
 `;
 
 const TodoContent = styled.span<{ checked: boolean }>`
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
   text-decoration: ${props => (props.checked ? 'line-through' : 'initial')};
   color: ${props => (props.checked ? '#aaa' : '#212121')};
 `;
@@ -39,6 +57,7 @@ export default function TodoItem({
         <TodoContent checked={completed}>{content}</TodoContent>
       </div>
       <CircleButton
+        className="delete-button"
         onClick={() => deleteTodo()}
         Icon={() => (
           <svg
