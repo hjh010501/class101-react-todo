@@ -36,6 +36,7 @@ const TodoContent = styled.span<{ checked: boolean }>`
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
+  cursor: text;
   text-decoration: ${props => (props.checked ? 'line-through' : 'initial')};
   color: ${props => (props.checked ? '#aaa' : '#212121')};
 `;

@@ -15,6 +15,10 @@ const Input = styled.input`
   width: 100%;
   border: none;
   outline: 0;
+
+  &::placeholder {
+    user-select: none;
+  }
 `;
 
 export default function TodoInput({

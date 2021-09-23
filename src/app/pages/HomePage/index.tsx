@@ -26,6 +26,7 @@ const Box = styled.div`
 
 const Title = styled.h1`
   margin: 0;
+  user-select: none;
   padding: 15px 25px;
 `;
 
@@ -42,8 +43,8 @@ export function HomePage() {
   return (
     <>
       <Helmet>
-        <title>Home Page</title>
-        <meta name="description" content="A Boilerplate application homepage" />
+        <title>오늘의 할일 :: To-Do</title>
+        <meta name="description" content="오늘의 할일을 정리해봅시다." />
       </Helmet>
       <Wrapper>
         <Box>
