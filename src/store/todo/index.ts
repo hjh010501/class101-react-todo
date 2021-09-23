@@ -9,21 +9,25 @@ export const initialState: TodoState = {
       id: '1',
       content: 'class101 강의 수강하기',
       completed: true,
+      editing: false,
     },
     {
       id: '2',
       content: 'Git 공부하기',
       completed: false,
+      editing: false,
     },
     {
       id: '3',
       content: 'Typescript 공부하기',
       completed: false,
+      editing: false,
     },
     {
       id: '4',
       content: 'React function component 라이프 사이클',
       completed: false,
+      editing: false,
     },
   ],
 };
@@ -38,7 +42,7 @@ const slice = createSlice({
       },
       prepare: (content: string) => {
         const id = nanoid();
-        return { payload: { id, content, completed: false } };
+        return { payload: { id, content, completed: false, editing: false } };
       },
     },
     checkTodo(state, action: PayloadAction<{ id: string }>) {
@@ -46,6 +50,24 @@ const slice = createSlice({
       const todo = state.todolist.find(todo => todo.id === id);
       if (todo) {
         todo.completed = !todo.completed;
+      }
+    },
+    editModeTodo(state, action: PayloadAction<{ id: string }>) {
+      const { id } = action.payload;
+      for (const todo of state.todolist) {
+        if (todo.id === id) continue;
+        if (todo.editing) todo.editing = false;
+      }
+      const todo = state.todolist.find(todo => todo.id === id);
+      if (todo) {
+        todo.editing = !todo.editing;
+      }
+    },
+    editTodo(state, action: PayloadAction<{ id: string; content: string }>) {
+      const { id, content } = action.payload;
+      const todo = state.todolist.find(todo => todo.id === id);
+      if (todo) {
+        todo.content = content;
       }
     },
     deleteTodo(state, action: PayloadAction<{ id: string }>) {

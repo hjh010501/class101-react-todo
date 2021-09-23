@@ -4,12 +4,14 @@ import styled from 'styled-components';
 import Block from '../../components/Block';
 import Checkbox from '../../components/Checkbox';
 import CircleButton from '../Button/CircleButton';
+import TodoInput from '../TodoInput';
 
-const Box = styled.div`
+const Box = styled.div<{ isEditing: boolean }>`
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 15px 15px 15px 25px;
+  padding: ${({ isEditing }) =>
+    isEditing ? '11px 15px 11px 25px' : '15px 15px 15px 25px'};
   width: 100%;
   font-size: 1.1em;
   border-bottom: 1px solid #eee;
@@ -41,20 +43,37 @@ const TodoContent = styled.span<{ checked: boolean }>`
 export default function TodoItem({
   todo,
   checkTodo,
+  editModeTodo,
+  editTodo,
   deleteTodo,
 }: {
   todo: TodoItem;
   checkTodo: () => void;
+  editModeTodo: () => void;
+  editTodo: (todo: string) => void;
   deleteTodo: () => void;
 }) {
-  const { content, completed } = todo;
+  const { content, completed, editing } = todo;
 
   return (
-    <Box>
-      <div style={{ display: 'flex', alignItems: 'center' }}>
+    <Box isEditing={editing}>
+      <div style={{ width: '100%', display: 'flex', alignItems: 'center' }}>
         <Checkbox checked={completed} onClick={() => checkTodo()} />
         <Block marginRight="10px" />
-        <TodoContent checked={completed}>{content}</TodoContent>
+        {editing ? (
+          <TodoInput
+            editTodo={(todo: string) => {
+              editTodo(todo);
+              editModeTodo();
+            }}
+            isEditing
+            editContent={content}
+          />
+        ) : (
+          <TodoContent onClick={() => editModeTodo()} checked={completed}>
+            {content}
+          </TodoContent>
+        )}
       </div>
       <CircleButton
         className="delete-button"
