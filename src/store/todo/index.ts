@@ -2,34 +2,10 @@ import { nanoid, PayloadAction } from '@reduxjs/toolkit';
 import { createSlice } from 'utils/@reduxjs/toolkit';
 import { useInjectReducer } from 'utils/redux-injectors';
 import { TodoState } from './types';
+import { saveTodoData, loadTodoData } from '../localStorage';
 
 export const initialState: TodoState = {
-  todolist: [
-    {
-      id: '1',
-      content: 'class101 강의 수강하기',
-      completed: true,
-      editing: false,
-    },
-    {
-      id: '2',
-      content: 'Git 공부하기',
-      completed: false,
-      editing: false,
-    },
-    {
-      id: '3',
-      content: 'Typescript 공부하기',
-      completed: false,
-      editing: false,
-    },
-    {
-      id: '4',
-      content: 'React function component 라이프 사이클',
-      completed: false,
-      editing: false,
-    },
-  ],
+  todolist: loadTodoData(),
 };
 
 const slice = createSlice({
@@ -39,6 +15,7 @@ const slice = createSlice({
     addTodo: {
       reducer: (state, action: PayloadAction<TodoItem>) => {
         state.todolist.push(action.payload);
+        saveTodoData(state.todolist);
       },
       prepare: (content: string) => {
         const id = nanoid();
@@ -51,6 +28,7 @@ const slice = createSlice({
       if (todo) {
         todo.completed = !todo.completed;
       }
+      saveTodoData(state.todolist);
     },
     editModeTodo(state, action: PayloadAction<{ id: string }>) {
       const { id } = action.payload;
@@ -69,11 +47,13 @@ const slice = createSlice({
       if (todo) {
         todo.content = content;
       }
+      saveTodoData(state.todolist);
     },
     deleteTodo(state, action: PayloadAction<{ id: string }>) {
       const { id } = action.payload;
       const filteredTodos = state.todolist.filter(todo => todo.id !== id);
       state.todolist = filteredTodos;
+      saveTodoData(state.todolist);
     },
   },
 });
