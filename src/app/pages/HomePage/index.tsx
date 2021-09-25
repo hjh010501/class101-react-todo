@@ -7,6 +7,7 @@ import styled from 'styled-components';
 
 import TodoInput from '../../components/TodoInput';
 import TodoItem from '../../components/TodoItem';
+import { Title } from '../../components/Text';
 
 const Wrapper = styled.div`
   width: 100%;
@@ -22,17 +23,19 @@ const Box = styled.div`
   background: white;
   box-shadow: 0px 25px 100px -60px rgba(0, 0, 0, 0.18);
   border-radius: 15px;
-`;
 
-const Title = styled.h1`
-  margin: 0;
-  user-select: none;
-  padding: 15px 25px;
+  @media (max-width: 425px) {
+    width: 100%;
+    height: 100vh;
+  }
 `;
 
 const TodoList = styled.div`
   height: 450px;
   overflow-y: auto;
+  @media (max-width: 425px) {
+    height: calc(100vh - 128px);
+  }
 `;
 
 export function HomePage() {
