@@ -16,7 +16,7 @@ const Circle = styled.div`
   }
 
   /* & svg {
-    fill: red;
+    fill: #3eb4eb;
   } */
 `;
 

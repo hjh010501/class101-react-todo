@@ -6,14 +6,14 @@ const Circle = styled.div<{ checked?: boolean }>`
   height: 20px;
   min-width: 20px;
   border-radius: 50%;
-  border: 2px solid ${props => (props.checked ? 'red' : '#eee')};
+  border: 2px solid ${props => (props.checked ? '#3eb4eb' : '#eee')};
   padding: 3px;
 
   & > .checkbox-icon {
     width: 100%;
     height: 100%;
     border-radius: 50%;
-    background-color: red;
+    background-color: #3eb4eb;
   }
 `;
 
