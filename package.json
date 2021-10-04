@@ -120,5 +120,8 @@
         "statements": 90
       }
     }
+  },
+  "devDependencies": {
+    "workbox-cli": "6.3.0"
   }
 }
